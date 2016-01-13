@@ -9,6 +9,7 @@ class Polygon {
     }
 
     calcArea() {
+        console.log("test1");
         return this.height * this.width;
     }
 }
