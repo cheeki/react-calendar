@@ -13,3 +13,5 @@ class Polygon {
         return this.height * this.width;
     }
 }
+
+require('./test2.js');
