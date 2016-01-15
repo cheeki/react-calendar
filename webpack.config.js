@@ -3,13 +3,21 @@
  */
 module.exports = {
     context: __dirname,
-    entry:  './src/test.js',
+    entry: {
+        javascript: './src/test.js',
+        html: './src/test.html'
+    },
     output: {
         path: __dirname + '/build',
-        filename: 'dist/testout.js'
+        filename: 'test.js'
     },
     module: {
         loaders: [
+            {
+                test: /\.html$/,
+                loader: 'file?name=[name].[ext]',
+                exclude: /node_modules/
+            },
             {
                 test: /\.js$/,
                 loaders: ['react-hot', 'jsx', 'babel'],

@@ -11,6 +11,4 @@ var HelloMessage = React.createClass({
     }
 });
 
-ReactDOM.render(<HelloMessage name="John" />, document.getElementById('test'));
-
 module.exports = HelloMessage;

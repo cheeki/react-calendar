@@ -1,3 +1,6 @@
+
+import React from 'react';
+
 class Polygon {
     constructor(height, width) {
         this.height = height;
@@ -14,4 +17,7 @@ class Polygon {
     }
 }
 
-require('./test2.js');
+var HelloMessage = require('./test2.js');
+
+
+ReactDOM.render(<HelloMessage name="John" />, document.getElementById('test'));
