@@ -4,7 +4,9 @@
 var gulp = require("gulp");
 var gutil = require("gulp-util");
 var jshint = require('gulp-jshint');
-var webpack = require('webpack-stream');
+var webpack = require('webpack');
+var webpackStream = require('webpack-stream');
+var WebpackDevServer = require('webpack-dev-server');
 var del = require('del');
 
 gulp.task("default", function () {
@@ -14,12 +16,23 @@ gulp.task("default", function () {
 });
 
 
-gulp.task("dev", function () {
-    gutil.log("dev");
+gulp.task("dev", ['webpack-dev-server'], function () {
     del(['build/', 'dist/']);
-    return gulp.src('src/test.js')
-        .pipe(webpack(require('./webpack.config.js')))
-        .pipe(gulp.dest('build/'));
+
+    var webpackConfig = require('./webpack.config.js');
+    return gulp.src('src/app.js')
+        .pipe(webpackStream(webpackConfig))
+        .pipe(gulp.dest('./build/'));
+});
+
+gulp.task('webpack-dev-server', function () {
+    var config = require('./webpack.config.js');
+    var compiler = webpack(config);
+    var server = new WebpackDevServer(compiler, {hot: true});
+
+    server.listen(8080, "localhost", function (err) {
+        if (err) throw new gutil.PluginError("webpack-dev-server", err);
+    });
 });
 
 gulp.task('jshint', ['default'], function () {

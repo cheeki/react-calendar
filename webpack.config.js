@@ -4,12 +4,12 @@
 module.exports = {
     context: __dirname,
     entry: {
-        javascript: './src/test.js',
+        javascript: './src/calendar.js',
         html: './src/test.html'
     },
     output: {
         path: __dirname + '/build',
-        filename: 'test.js'
+        filename: 'bundle.js'
     },
     module: {
         loaders: [
@@ -20,7 +20,7 @@ module.exports = {
             },
             {
                 test: /\.js$/,
-                loaders: ['react-hot', 'jsx', 'babel'],
+                loaders: ['react-hot', 'babel'],
                 exclude: /node_modules/
             }
         ]
