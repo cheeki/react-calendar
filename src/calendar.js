@@ -1,11 +1,22 @@
 
 import React from 'react';
 import ReactDom from 'react-dom';
+import Title from './title';
+import CalendarBody from './body'
 
-class Calendar extends React.createClass {
+export default class Calendar extends React.Component {
+    constructor () {
+        super()
+        this.state = {month: 1, year: 2015}
+    }
     render() {
-        return <div><h1>Calendar {this.props.month}</h1></div>;
+        return (
+            <div>
+                <Title month={this.state.month} year={this.state.year} />
+                <CalendarBody />
+            </div>
+            );
     }
 }
 
-ReactDom.render(<Calendar month="10" />, document.getElementById('test'));
+ReactDom.render(<Calendar/>, document.getElementById('test'));
