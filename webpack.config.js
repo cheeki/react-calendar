@@ -1,6 +1,8 @@
 /**
  * Created by 1001196 on 16. 1. 14..
  */
+var webpack = require('webpack');
+
 module.exports = {
     context: __dirname,
     entry: {
@@ -24,5 +26,14 @@ module.exports = {
                 exclude: /node_modules/
             }
         ]
-    }
+    },
+    devServer: {
+        contentBase: "./build",
+        noInfo: true,
+        hot: true,
+        stats: { colors: true, progress: true }
+    },
+    plugins: [
+        new webpack.NoErrorsPlugin()
+    ]
 };
