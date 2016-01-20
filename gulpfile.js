@@ -15,7 +15,7 @@ gulp.task("default", function () {
         .pipe(gulp.dest("dist"));
 });
 
-gulp.task("dev", ['webpack-dev-server'], function () {
+gulp.task("build", function () {
     del(['build/', 'dist/']);
 
     var webpackConfig = require('./webpack.config.js');
@@ -24,7 +24,7 @@ gulp.task("dev", ['webpack-dev-server'], function () {
         .pipe(gulp.dest('./build/'));
 });
 
-gulp.task('webpack-dev-server', function () {
+gulp.task('serve', function () {
     var config = require('./webpack.config.js');
     var compiler = webpack(config);
     var server = new WebpackDevServer(compiler, config.devServer);

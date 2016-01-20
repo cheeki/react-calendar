@@ -15,15 +15,17 @@ export default class CalendarBody extends React.Component {
 
         return (
             <table className="calendar-table">
-                {rows.map(function(row) {
-                    return (
-                        <tr>
-                            {row.map(function(date) {
-                                return <td>{date}</td>;
-                            })}
-                        </tr>
-                        );
-                })}
+                <tbody>
+                    {rows.map(function(row, i) {
+                        return (
+                            <tr key={i}>
+                                {row.map(function(date) {
+                                    return <td key={date}>{date}</td>;
+                                })}
+                            </tr>
+                            );
+                    })}
+                </tbody>
             </table>
         );
     }

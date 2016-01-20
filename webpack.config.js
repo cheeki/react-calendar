@@ -6,8 +6,8 @@ var webpack = require('webpack');
 module.exports = {
     context: __dirname,
     entry: {
-        javascript: './src/calendar.js',
-        html: './src/test.html'
+        javascript: './src/app.js',
+        html: './src/index.html'
     },
     output: {
         path: __dirname + '/build',
@@ -29,7 +29,7 @@ module.exports = {
     },
     devServer: {
         contentBase: "./build",
-        noInfo: true,
+        noInfo: false,
         hot: true,
         stats: { colors: true, progress: true }
     },
