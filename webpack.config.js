@@ -6,7 +6,10 @@ var webpack = require('webpack');
 module.exports = {
     context: __dirname,
     entry: {
-        javascript: './src/app.js',
+        javascript: [
+            './src/app',
+            'webpack-dev-server/client?http://localhost:8000'
+        ],
         html: './src/index.html'
     },
     output: {
@@ -24,6 +27,10 @@ module.exports = {
                 test: /\.js$/,
                 loaders: ['react-hot', 'babel'],
                 exclude: /node_modules/
+            },
+            {
+                test: /\.less$/,
+                loader: 'style!css!less'
             }
         ]
     },

@@ -1,0 +1,60 @@
+@fontName: Avenir-Light;
+@titleColor: #63c8c8;
+
+body {
+  margin: 0;
+}
+
+.fugui-calendar{
+  font-family: @fontName;
+
+  width: 300px;
+  h1 {
+    @titleTextColor: #fefefe;
+    font-size: 28px;
+    text-align: center;
+    background: @titleColor;
+    padding: 4px;
+    margin: 0;
+    color: @titleTextColor;
+    font-weight: 400;
+
+    button {
+      vertical-align: middle;
+      border: none;
+      background: none;
+//      padding: 7px 3px;
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 30px;
+      color: @titleTextColor;
+
+      &.prev {
+        float: left;
+      }
+      &.next {
+        float: right;
+      }
+    }
+  }
+
+  .calendar-table {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border-collapse: collapse;
+
+    th {
+      background: @titleColor;
+    }
+
+    td {
+      text-align: center;
+      padding: 5px;
+
+      &.exclude {
+        color: #888;
+      }
+    }
+  }
+}

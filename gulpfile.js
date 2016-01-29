@@ -5,7 +5,6 @@ var gulp = require("gulp");
 var gutil = require("gulp-util");
 var jshint = require('gulp-jshint');
 var webpack = require('webpack');
-var webpackStream = require('webpack-stream');
 var WebpackDevServer = require('webpack-dev-server');
 var del = require('del');
 
@@ -19,9 +18,16 @@ gulp.task("build", function () {
     del(['build/', 'dist/']);
 
     var webpackConfig = require('./webpack.config.js');
-    return gulp.src('src/app.js')
-        .pipe(webpackStream(webpackConfig))
-        .pipe(gulp.dest('./build/'));
+        webpack(webpackConfig).run( function(err, stats) {
+                    if (err) {
+                        gutil.log('Error', err);
+                    } else {
+                        Object.keys(stats.compilation.assets).forEach(function(key) {
+                            gutil.log('Webpack: output ', gutil.colors.green(key));
+                        });
+                        gutil.log('Webpack: ', gutil.colors.blue('finished ', stats.compilation.name));
+                    }
+            })
 });
 
 gulp.task('serve', function () {
