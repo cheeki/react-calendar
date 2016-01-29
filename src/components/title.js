@@ -8,6 +8,11 @@ export default class Title extends React.Component {
         super()
     }
     render () {
-        return <h1>{this.props.month}/{this.props.year}</h1>;
+        return (
+            <h1>
+                <button type="button" className="prev">&lt;</button>
+                {this.props.month}/{this.props.year}
+                <button type="button" className="next">&gt;</button>
+            </h1>);
     }
 }
