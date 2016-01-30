@@ -14,15 +14,16 @@ export default class CalendarBody extends React.Component {
         var rows = [],
             date = this.props.date,
             iterator = new Date(date),
-            startDate = new Date(date),
-            endDate = new Date(date);
+            endDate = new Date(date),
+            thisMonth = iterator.getMonth();
 
+        endDate.setDate(1);
         endDate.setMonth(endDate.getMonth() + 1);
-        endDate.setDate(0);
-        endDate.setDate(endDate.getDate() + ( 7 - endDate.getDay() ) % 7 );
+        endDate.setDate(endDate.getDate() + ( 7 - endDate.getDay() ) % 7 - 1);
 
-        startDate.setDate(1);
-        iterator.setDate(startDate.getDate() - startDate.getDay());
+        iterator.setDate(1);
+        iterator.setDate(iterator.getDate() - iterator.getDay());
+
 
         for(var i = 0; iterator <= endDate ; i++) {
             rows[i] = [];
@@ -42,7 +43,7 @@ export default class CalendarBody extends React.Component {
                                 {row.map(function(date) {
                                     return (<DateCell key={date.getTime()}
                                                 date={date}
-                                                className={(date < startDate || date > endDate) ? "exclude" : ""} />);
+                                                className={(date.getMonth() != thisMonth) ? "exclude" : ""} />);
                                 })}
                             </tr>
                             );
