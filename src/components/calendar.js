@@ -10,9 +10,8 @@ export default class Calendar extends React.Component {
         super();
 
         var today = new Date();
-        today.setHours(0, 0, 0);
+        today.setHours(0, 0, 0, 0, 0, 0);
         this.state = {
-            date: today.getDate(),
             month: today.getMonth(),
             year: today.getFullYear(),
             currentDate: today
@@ -31,7 +30,7 @@ export default class Calendar extends React.Component {
         this.setState({month: nextMonth});
     }
 
-    prevCalendar() {
+    prevCalendar () {
         var month = this.state.month,
             prevMonth = month - 1;
 
@@ -43,6 +42,13 @@ export default class Calendar extends React.Component {
         this.setState({month: prevMonth});
     }
 
+    selectDate (date) {
+        var _this = this;
+        return function () {
+            _this.setState({currentDate: date});
+        };
+    }
+
     render() {
         return (
             <div className='fugui-calendar'>
@@ -51,7 +57,10 @@ export default class Calendar extends React.Component {
                     year={this.state.year} 
                     onNextButtonClick={this.nextCalendar.bind(this)}
                     onPrevButtonClick={this.prevCalendar.bind(this)}/>
-                <CalendarBody date={new Date(this.state.year, this.state.month)}  currentDate={this.state.currentDate}/>
+                <CalendarBody 
+                    date={new Date(this.state.year, this.state.month)}  
+                    currentDate={this.state.currentDate}
+                    selectDate={this.selectDate.bind(this)}/>
             </div>
             );
     }

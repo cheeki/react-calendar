@@ -10,9 +10,17 @@ export default class Title extends React.Component {
     render () {
         return (
             <h1>
-                <button type="button" className="prev" onClick={this.props.onPrevButtonClick}>&lt;</button>
-                {this.props.month+1}/{this.props.year}
-                <button type="button" className="next" onClick={this.props.onNextButtonClick}>&gt;</button>
+                <button 
+                    type="button" 
+                    className="prev" 
+                    onClick={this.props.onPrevButtonClick}>&lt;</button>
+                <span>
+                    {this.props.month+1}/{this.props.year}
+                </span>
+                <button 
+                    type="button" 
+                    className="next" 
+                    onClick={this.props.onNextButtonClick}>&gt;</button>
             </h1>);
     }
 }

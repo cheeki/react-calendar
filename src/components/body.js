@@ -24,7 +24,6 @@ export default class CalendarBody extends React.Component {
         iterator.setDate(1);
         iterator.setDate(iterator.getDate() - iterator.getDay());
 
-
         for(var i = 0; iterator <= endDate ; i++) {
             rows[i] = [];
             for (var j = 0; j < 7; j++) {
@@ -37,17 +36,17 @@ export default class CalendarBody extends React.Component {
             <table className="calendar-table">
                 <CalendarLabel />
                 <tbody>
-                    {rows.map(function(row, i) {
-                        return (
-                            <tr key={i}>
-                                {row.map(function(date) {
-                                    return (<DateCell key={date.getTime()}
-                                                date={date}
-                                                className={(date.getMonth() != thisMonth) ? "exclude" : ""} />);
-                                })}
-                            </tr>
-                            );
-                    })}
+                    {rows.map((row, i) =>
+                        (<tr key={i}>
+                            {row.map(date =>
+                                (<DateCell key={date.getTime()}
+                                            date={date}
+                                            className={(date.getMonth() != thisMonth) ? "exclude" : ""} 
+                                            isSelected={date.getTime() === this.props.currentDate.getTime()}
+                                            selectDate={this.props.selectDate}/>)
+                            )}
+                            </tr>)
+                    )}
                 </tbody>
             </table>
         );
