@@ -14,8 +14,11 @@ export default class Title extends React.Component {
                     type="button" 
                     className="prev" 
                     onClick={this.props.onPrevButtonClick}>&lt;</button>
-                <span>
-                    {this.props.month+1}/{this.props.year}
+                <span class="fugui-calendar-month">
+                    {this.props.month+1}
+                </span>
+                /
+                <span class="fugui-calendar-year">{this.props.year}
                 </span>
                 <button 
                     type="button" 
