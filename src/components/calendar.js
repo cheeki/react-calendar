@@ -1,13 +1,11 @@
 
 import React from 'react';
-import ReactDom from 'react-dom';
-import Title from './title';
+import CalendarTitle from './title';
 import CalendarBody from './body';
-import '../css/style.less';
 
 export default class Calendar extends React.Component {
-    constructor () {
-        super();
+    constructor (props) {
+        super(props);
 
         var today = new Date();
         today.setHours(0, 0, 0, 0, 0, 0);
@@ -52,18 +50,17 @@ export default class Calendar extends React.Component {
     render() {
         return (
             <div className='fugui-calendar'>
-                <Title 
-                    month={this.state.month} 
-                    year={this.state.year} 
+                <CalendarTitle
+                    month={this.state.month}
+                    year={this.state.year}
                     onNextButtonClick={this.nextCalendar.bind(this)}
-                    onPrevButtonClick={this.prevCalendar.bind(this)}/>
-                <CalendarBody 
-                    date={new Date(this.state.year, this.state.month)}  
+                    onPrevButtonClick={this.prevCalendar.bind(this)} />
+
+                <CalendarBody
+                    date={new Date(this.state.year, this.state.month)}
                     currentDate={this.state.currentDate}
-                    selectDate={this.selectDate.bind(this)}/>
+                    selectDate={this.selectDate.bind(this)} />
             </div>
-            );
+        );
     }
 }
-
-ReactDom.render(<Calendar/>, document.getElementById('test'));
