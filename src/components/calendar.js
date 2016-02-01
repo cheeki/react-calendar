@@ -1,7 +1,7 @@
 
 import React from 'react';
-import CalendarTitle from './title';
-import CalendarBody from './body';
+import CalendarTitle from './calendarTitle';
+import CalendarBody from './calendarBody';
 
 export default class Calendar extends React.Component {
     constructor (props) {

@@ -12,7 +12,7 @@ export default class DateCell extends React.Component {
         var className = (() =>
                     this.props.className + ( this.props.isSelected == true ? " selected" : ""))();
         return (
-            <td className={className} onClick={this.props.selectDate(this.props.date)}>{this.props.date.getDate()}</td>
+            <td className={className.trim()} onClick={this.props.selectDate(this.props.date)}>{this.props.date.getDate()}</td>
         );
     }
 }
