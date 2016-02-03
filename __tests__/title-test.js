@@ -3,6 +3,8 @@ jest.dontMock('../src/components/calendar');
 jest.dontMock('../src/components/calendarTitle');
 jest.dontMock('../src/components/calendarCell');
 jest.dontMock('../src/components/calendarBody');
+jest.dontMock('../src/components/calendarMonthSelect');
+jest.dontMock('../src/components/calendarLabel');
 
 import React from 'react';
 import ReactDOM from 'react-dom';
