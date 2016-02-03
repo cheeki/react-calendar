@@ -46,6 +46,7 @@ module.exports = {
         new webpack.NoErrorsPlugin()
     ],
     postcss: function () {
-        return [autoprefixer];
-    }
+        return [ autoprefixer({ browsers: [] })];
+    },
+    devtool: 'source-map'
 };
