@@ -2,6 +2,8 @@
  * Created by 1001196 on 16. 1. 14..
  */
 var webpack = require('webpack');
+var autoprefixer = require('autoprefixer');
+var precss = require('precss');
 
 module.exports = {
     context: __dirname,
@@ -30,7 +32,7 @@ module.exports = {
             },
             {
                 test: /\.less$/,
-                loader: 'style!css!less'
+                loader: 'style!css!less!postcss'
             }
         ]
     },
@@ -42,5 +44,8 @@ module.exports = {
     },
     plugins: [
         new webpack.NoErrorsPlugin()
-    ]
+    ],
+    postcss: function () {
+        return [autoprefixer];
+    }
 };
