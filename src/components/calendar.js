@@ -20,27 +20,39 @@ export default class Calendar extends React.Component {
     }
 
     moveToNextMonth () {
-        var month = this.state.month,
-            nextMonth = month + 1;
+        this.setState(function(previousState, currentProps) {
+            var month = previousState.month,
+                year = previousState.year,
+                nextMonth = month + 1;
 
-        if(nextMonth > 11) {
-            this.setState({year: this.state.year + 1 });
-            nextMonth %= 12;
-        }
+            if(nextMonth > 11) {
+                year = year + 1;
+                nextMonth %= 12;
+            }
 
-        this.setState({month: nextMonth});
+            return {
+                month: nextMonth,
+                year: year
+            };
+        });
     }
 
     moveToPrevMonth () {
-        var month = this.state.month,
-            prevMonth = month - 1;
+        this.setState(function(previousState, currentProps) {
+            var month = previousState.month,
+                year = previousState.year,
+                prevMonth = month - 1;
 
-        if(prevMonth < 0) {
-            this.setState({year: this.state.year - 1 });
-            prevMonth += 12;
-        }
+            if(prevMonth < 0) {
+                year = year - 1;
+                prevMonth += 12;
+            }
 
-        this.setState({month: prevMonth});
+            return {
+                month: prevMonth,
+                year: year
+            };
+        });
     }
 
     moveToNextYear() {
@@ -102,7 +114,8 @@ export default class Calendar extends React.Component {
                         currentDate={this.state.currentDate}
                         selectDate={this.selectDate.bind(this)}
                         locale={this.state.locale}
-                        className={this.state.isShowingMonthSelector ? 'blur' : ''} />
+                        className={this.state.isShowingMonthSelector ? 'blur' : ''}
+                        isShowingMonthSelector={this.state.isShowingMonthSelector} />
                     <CalendarMonthSelect
                         className={this.state.isShowingMonthSelector ? 'slide_open' : ''}
                         onMonthSelect={this.selectMonth.bind(this)} />

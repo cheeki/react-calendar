@@ -10,6 +10,10 @@ export default class CalendarBody extends React.Component {
         super ();
     }
 
+    shouldComponentUpdate (nextProps, nextState) {
+        return !nextProps.isShowingMonthSelector || (!this.props.isShowingMonthSelector && nextProps.isShowingMonthSelector);
+    }
+
     render () {
         var rows = [],
             date = this.props.date,
