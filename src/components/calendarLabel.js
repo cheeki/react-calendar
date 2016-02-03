@@ -13,7 +13,7 @@ export default class CalendarLabel extends React.Component {
         return (
             <thead>
             <tr>
-            {LocalString.label.map(function(name, i) {
+            {LocalString.days[this.props.locale].map(function(name, i) {
                 return (
                     <th key={"day_name_" + i}>{name}</th>
                 )

@@ -12,9 +12,14 @@ export default class CalendarTitle extends React.Component {
                     type="button"
                     className="prev"
                     onClick={this.props.onPrevButtonClick}>&lt;</button>
-                <span className="fugui-calendar-month">{this.props.month+1}</span>
-                .
-                <span className="fugui-calendar-year">{this.props.year}</span>
+                <button
+                    type="button"
+                    className="title_btn"
+                    onClick={this.props.onTitleClick}>
+                    {this.props.isShowingMonthSelector ? null : (<span className="fugui-calendar-month">{this.props.month+1}</span>)}
+                    {this.props.isShowingMonthSelector ? null : "."}
+                    <span className="fugui-calendar-year">{this.props.year}</span>
+                </button>
                 <button
                     type="button"
                     className="next"

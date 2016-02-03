@@ -1,10 +1,13 @@
 /**
  * Created by 1001196 on 16. 1. 29..
  */
-var labels = {
+var days = {
     "en-US": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
 };
 
+var months = ["Jan", "Feb", "Mar"];
+
 module.exports = {
-    label: labels["en-US"]
+    days: days,
+    months: months
 };

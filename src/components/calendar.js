@@ -2,6 +2,7 @@
 import React from 'react';
 import CalendarTitle from './calendarTitle';
 import CalendarBody from './calendarBody';
+import CalendarMonthSelect from './calendarMonthSelect'
 
 export default class Calendar extends React.Component {
     constructor (props) {
@@ -12,11 +13,13 @@ export default class Calendar extends React.Component {
         this.state = {
             month: today.getMonth(),
             year: today.getFullYear(),
-            currentDate: today
+            currentDate: today,
+            isShowingMonthSelector: false,
+            locale: 'en-US'
         };
     }
 
-    nextCalendar() {
+    moveToNextMonth () {
         var month = this.state.month,
             nextMonth = month + 1;
 
@@ -28,7 +31,7 @@ export default class Calendar extends React.Component {
         this.setState({month: nextMonth});
     }
 
-    prevCalendar () {
+    moveToPrevMonth () {
         var month = this.state.month,
             prevMonth = month - 1;
 
@@ -40,11 +43,47 @@ export default class Calendar extends React.Component {
         this.setState({month: prevMonth});
     }
 
+    moveToNextYear() {
+        this.setState({year: this.state.year + 1});
+    }
+
+    moveToPrevYear () {
+        this.setState({year: this.state.year - 1});
+    }
+
     selectDate (date) {
         var _this = this;
         return function () {
             _this.setState({currentDate: date});
         };
+    }
+
+    selectMonth (month) {
+        var _this = this;
+        return function () {
+            _this.setState({
+                month: month,
+                isShowingMonthSelector: false
+            });
+        };
+    }
+
+    toggleMonthSelector () {
+        this.setState({isShowingMonthSelector: !this.state.isShowingMonthSelector});
+    }
+
+    onNextButtonClick () {
+        if (this.state.isShowingMonthSelector) {
+            return this.moveToNextYear;
+        }
+        return this.moveToNextMonth;
+    }
+
+    onPrevButtonClick () {
+        if (this.state.isShowingMonthSelector) {
+            return this.moveToPrevYear;
+        }
+        return this.moveToPrevMonth;
     }
 
     render() {
@@ -53,13 +92,21 @@ export default class Calendar extends React.Component {
                 <CalendarTitle
                     month={this.state.month}
                     year={this.state.year}
-                    onNextButtonClick={this.nextCalendar.bind(this)}
-                    onPrevButtonClick={this.prevCalendar.bind(this)} />
-
-                <CalendarBody
-                    date={new Date(this.state.year, this.state.month)}
-                    currentDate={this.state.currentDate}
-                    selectDate={this.selectDate.bind(this)} />
+                    isShowingMonthSelector={this.state.isShowingMonthSelector}
+                    onNextButtonClick={this.onNextButtonClick().bind(this)}
+                    onPrevButtonClick={this.onPrevButtonClick().bind(this)}
+                    onTitleClick={this.toggleMonthSelector.bind(this)} />
+                <div className='calendar_wrapper'>
+                    <CalendarBody
+                        date={new Date(this.state.year, this.state.month)}
+                        currentDate={this.state.currentDate}
+                        selectDate={this.selectDate.bind(this)}
+                        locale={this.state.locale}
+                        className={this.state.isShowingMonthSelector ? 'blur' : ''} />
+                    <CalendarMonthSelect
+                        className={this.state.isShowingMonthSelector ? 'stretchOpen' : ''}
+                        onMonthSelect={this.selectMonth.bind(this)} />
+                </div>
             </div>
         );
     }

@@ -3,7 +3,7 @@
  */
 import React from 'react';
 
-export default class DateCell extends React.Component {
+export default class CalendarCell extends React.Component {
     constructor () {
         super();
     }

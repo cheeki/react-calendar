@@ -1,7 +1,7 @@
 // __tests__/title-test.js
 jest.dontMock('../src/components/calendar');
 jest.dontMock('../src/components/calendarTitle');
-jest.dontMock('../src/components/date');
+jest.dontMock('../src/components/calendarCell');
 jest.dontMock('../src/components/calendarBody');
 
 import React from 'react';

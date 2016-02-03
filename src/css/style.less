@@ -7,6 +7,7 @@ body {
 
 .fugui-calendar{
   font-family: @fontName;
+  overflow: hidden;
 
   width: 300px;
   h1 {
@@ -18,12 +19,27 @@ body {
     margin: 0;
     color: @titleTextColor;
     font-weight: 400;
+    z-index: 100;
+    position: relative;
 
-    button {
+    button.title_btn {
+      border: none;
+      vertical-align: middle;
+      background: none;
+      font-size: 28px;
+      text-align: center;
+      background: @titleColor;
+      padding: 4px;
+      margin: 0;
+      color: @titleTextColor;
+      font-weight: 400;
+    }
+
+    button.prev,
+    button.next {
       vertical-align: middle;
       border: none;
       background: none;
-//      padding: 7px 3px;
       font-weight: 700;
       font-size: 20px;
       line-height: 30px;
@@ -38,32 +54,139 @@ body {
     }
   }
 
+  .hide {
+    display: none !important;
+  }
+
+  .calendar_wrapper {
+    position: relative;
+  }
+
   .calendar-table {
     width: 100%;
     margin: 0;
     padding: 0;
     border-collapse: collapse;
 
-    th {
-      background: @titleColor;
+    th, td {
+      text-align: center;
+      //padding: 5px;
+      line-height: 40px;
+      height: 40px;
+      width: 100/7%;
+      cursor: pointer;
     }
 
     td {
-      text-align: center;
-      //padding: 5px;
-      line-height: 30px;
-      height: 30px;
-
       &.exclude {
         color: #888;
       }
 
       &.selected{
-        display: block;
         background: #f57;
         color: #fff;
-        border-radius: 20px;
+        border-radius: 30px;
+        animation: zoomout 0.1s forwards ease-in;
       }
+
+      &:hover {
+        animation: zoomin 0.1s forwards ease-in;
+      }
+    }
+
+    &.blur{
+      -webkit-filter: blur(3px);
+    }
+  }
+
+  .month_selector {
+    list-style: none;
+    padding: 0 10px 20px;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    left:0;
+    right:0;
+    // bottom:0;
+    background: #fff;
+    overflow: hidden;
+    animation: shrink_close 0.2s forwards ease-in;
+    border-bottom: 1px solid #eee;
+    transform: translate3d(0, -200, 0);
+    box-shadow: 0 0 10000px #555;
+
+    li {
+      @height: 60px;
+      @button_highlight: #a2c;
+      display: inline-block;
+      width: 25%;
+      border: 0;
+      height: @height;
+      text-align: center;
+      line-height: @height;
+
+      button {
+        border: none;
+        color: #666;
+        background: none;
+        margin: 10px auto;
+        display: block;
+        line-height: 50px;
+        padding: 0 10px;
+        min-width: 60%;
+        font-size: 22px;
+        cursor: pointer;
+        border-bottom: 2px #eee solid;
+
+        &:hover {
+          border-bottom: 3px @button_highlight solid;
+          color: #333;
+        }
+      }
+    }
+  }
+
+  .stretchOpen {
+    animation: stretch_open 0.3s forwards ease-out;
+  }
+
+  @keyframes stretch_open {
+    from {
+      transform: translate3d(0, -200px, 0);
+      opacity: 0;
+    }
+    to {
+      transform: translate3d(0, 0, 0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes shrink_close {
+    from {
+      transform: translate3d(0, 0, 0);
+      opacity: 1;
+    }
+    to {
+      transform: translate3d(0, -200px, 0);
+      opacity: 0;
+    }
+  }
+
+  @keyframes zoomin {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(1.1);
+    }
+  }
+
+  @keyframes zoomout {
+    from {
+      transform: scale(1.1);
+    }
+    to {
+      transform: scale(1);
     }
   }
 }

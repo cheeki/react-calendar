@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import CalendarLabel from './calendarLabel';
-import DateCell from './date'
+import CalendarCell from './calendarCell'
 
 export default class CalendarBody extends React.Component {
     constructor () {
@@ -33,17 +33,18 @@ export default class CalendarBody extends React.Component {
         }
 
         return (
-            <table className="calendar-table">
-                <CalendarLabel />
+            <table className={(this.props.className + " calendar-table").trim()}>
+                <CalendarLabel locale={this.props.locale} />
                 <tbody>
                     {rows.map((row, i) =>
                         (<tr key={i}>
                             {row.map(date =>
-                                (<DateCell key={date.getTime()}
-                                            date={date}
-                                            className={(date.getMonth() != thisMonth) ? "exclude" : ""} 
-                                            isSelected={date.getTime() === this.props.currentDate.getTime()}
-                                            selectDate={this.props.selectDate}/>)
+                                (<CalendarCell
+                                    key={date.getTime()}
+                                    date={date}
+                                    className={(date.getMonth() !== thisMonth) ? "exclude" : ""}
+                                    isSelected={date.getTime() === this.props.currentDate.getTime()}
+                                    selectDate={this.props.selectDate}/>)
                             )}
                             </tr>)
                     )}
