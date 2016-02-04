@@ -79,10 +79,13 @@ export default class Calendar extends React.Component {
     selectDate (date) {
         return () => {
             this.setState({currentDate: date});
-            document.getElementsByClassName(this.props.inputbox)[0].value = date;
 
             if (date.getMonth() !== this.state.month) {
                 this.selectMonth(date.getMonth())();
+            }
+
+            if (this.props.onDateSelected && typeof this.props.onDateSelected == 'function') {
+                this.props.onDateSelected.call(null, date);
             }
         };
     }
@@ -95,6 +98,11 @@ export default class Calendar extends React.Component {
                 needTransitionEffect: true
             });
         };
+    }
+
+    applyTransitionEffect () {
+        this.setState({needTransitionEffect: true});
+        setTimeout(() => this.setState({needTransitionEffect: false}), 300);
     }
 
     toggleMonthSelector () {
@@ -136,13 +144,8 @@ export default class Calendar extends React.Component {
                         currentDate={this.state.currentDate}
                         selectDate={this.selectDate.bind(this)}
                         locale={this.props.locale}
-                        className={() => {
-                            var className =  '';
-                            if (this.state.isShowingMonthSelector) {
-                                className += 'blur';
-                            }
-                        }
-                        }
+                        needTransitionEffect={this.state.needTransitionEffect}
+                        className={this.state.isShowingMonthSelector ? 'blur' : ''}
                         isShowingMonthSelector={this.state.isShowingMonthSelector} />
                     <CalendarMonthSelect
                         className={this.state.isShowingMonthSelector ? 'slide_open' : 'slide_close'}

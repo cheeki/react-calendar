@@ -9,10 +9,8 @@ export default class CalendarCell extends React.Component {
     }
 
     render () {
-        var className = (() =>
-                    this.props.className + ( this.props.isSelected == true ? " selected" : ""))();
         return (
-            <td className={className.trim()} onClick={this.props.selectDate(this.props.date)}>{this.props.date.getDate()}</td>
+            <td className={this.props.className} onClick={this.props.selectDate(this.props.date)}>{this.props.date.getDate()}</td>
         );
     }
 }

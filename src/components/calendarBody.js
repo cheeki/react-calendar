@@ -46,8 +46,20 @@ export default class CalendarBody extends React.Component {
                                 (<CalendarCell
                                     key={date.getTime()}
                                     date={date}
-                                    className={(date.getMonth() !== thisMonth) ? "exclude" : ""}
-                                    isSelected={date.getTime() === this.props.currentDate.getTime()}
+                                    className={(() => {
+                                        var className =  '';
+                                        if (date.getMonth() !== thisMonth) {
+                                            className += 'exclude';
+                                        }
+                                        if (date.getTime() === this.props.currentDate.getTime()) {
+                                            className += 'selected';
+                                        }
+                                        if (this.props.needTransitionEffect) {
+                                            className += ' zoom_in_out';
+                                        }
+
+                                        return className.trim();
+                                    })()}
                                     selectDate={this.props.selectDate}/>)
                             )}
                             </tr>)

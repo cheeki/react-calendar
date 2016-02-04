@@ -6,4 +6,10 @@ import ReactDom from 'react-dom';
 import Calendar from './components/calendar';
 import './css/style.less';
 
-ReactDom.render(<Calendar inputbox="_calendar-input" />, document.getElementById('test'));
+var dateInput = document.getElementsByClassName('_calendar-input')[0];
+
+var onDateSelected = function (date) {
+    dateInput.value = date;
+};
+
+ReactDom.render(<Calendar onDateSelected={onDateSelected} />, document.getElementById('test'));

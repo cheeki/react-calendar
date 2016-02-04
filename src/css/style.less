@@ -174,11 +174,15 @@ body {
   }
 
   .zoom_in_out {
-    animation: zoom_in_out 0.1s forwards ease-out;
+    animation: zoom_in_out 0.3s forwards ease-out;
   }
 
   .fade_in_out {
-    animation: fade_in_out 0.1s forwards ease-out;
+    animation: fade_in_out 0.3s linear;
+  }
+
+  .blur_in_out {
+    animation: blur_in_out 0.3s linear;
   }
 
   /** Keyframe Animations **/
@@ -193,14 +197,21 @@ body {
   }
 
   @keyframes zoom_in_out {
-    0% {transform: scale(1);}
-    50% {transform: scale(0);}
-    100%{transform: scale(1);}
+    0% {transform: scale(1); opacity: 1;}
+    50% {transform: scale(0.5); opacity: 0.5;}
+    100%{transform: scale(1); opacity: 1;}
   }
 
   @keyframes fade_in_out {
     0% {opacity: 1;}
-    50% {opacity: 0;}
+    20% {opacity: 0.5;}
+    60% {opacity: 0.5;}
     100%{opacity: 1;}
+  }
+
+  @keyframes blur_in_out {
+    0% {filter: blur(0); opacity: 1;}
+    50% {filter: blur(2px); opadity: 0.3;}
+    100% {filter: blur(0); opacity: 1;}
   }
 }
