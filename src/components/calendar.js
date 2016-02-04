@@ -80,6 +80,10 @@ export default class Calendar extends React.Component {
         return () => {
             this.setState({currentDate: date});
             document.getElementsByClassName(this.props.inputbox)[0].value = date;
+
+            if (date.getMonth() !== this.state.month) {
+                this.selectMonth(date.getMonth())();
+            }
         };
     }
 
