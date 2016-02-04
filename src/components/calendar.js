@@ -41,10 +41,11 @@ export default class Calendar extends React.Component {
                 nextMonth %= 12;
             }
 
+            this.applyTransitionEffect();
+
             return {
                 month: nextMonth,
-                year: year,
-                needTransitionEffect: true
+                year: year
             };
         });
     }
@@ -60,10 +61,11 @@ export default class Calendar extends React.Component {
                 prevMonth += 12;
             }
 
+            this.applyTransitionEffect();
+
             return {
                 month: prevMonth,
-                year: year,
-                needTransitionEffect: true
+                year: year
             };
         });
     }
@@ -94,9 +96,9 @@ export default class Calendar extends React.Component {
         return () => {
             this.setState({
                 month: month,
-                isShowingMonthSelector: false,
-                needTransitionEffect: true
+                isShowingMonthSelector: false
             });
+            this.applyTransitionEffect();
         };
     }
 
