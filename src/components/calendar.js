@@ -117,7 +117,7 @@ export default class Calendar extends React.Component {
                         className={this.state.isShowingMonthSelector ? 'blur' : ''}
                         isShowingMonthSelector={this.state.isShowingMonthSelector} />
                     <CalendarMonthSelect
-                        className={this.state.isShowingMonthSelector ? 'slide_open' : ''}
+                        className={this.state.isShowingMonthSelector ? 'slide_open' : 'slide_close'}
                         onMonthSelect={this.selectMonth.bind(this)} />
                 </div>
             </div>

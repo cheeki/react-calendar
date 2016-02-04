@@ -86,10 +86,15 @@ body {
       }
 
       &.selected{
-        background: #f57;
+        @selected_background: #f57;
+        background: @selected_background;
         color: #fff;
         border-radius: 30px;
         animation: zoomout 0.1s forwards ease-in;
+
+        &.exclude {
+          background: #aaa;
+        }
       }
 
       &:hover {
@@ -98,7 +103,7 @@ body {
     }
 
     &.blur{
-      -webkit-filter: blur(3px);
+      filter: blur(3px);
     }
   }
 
@@ -113,10 +118,12 @@ body {
     // bottom:0;
     background: #fff;
     overflow: hidden;
-    animation: slide_close 0.2s forwards ease-in;
     border-bottom: 1px solid #eee;
-    transform: translate3d(0, -200, 0);
+
+    opacity: 0;
     box-shadow: 0 0 10000px #555;
+
+    // transition: transform 0.2s opacity 0.2s;
 
     li {
       @height: 60px;
@@ -151,32 +158,30 @@ body {
 
   /** Animation Classes **/
   .slide_open {
-    animation: slide_open 0.3s forwards ease-out;
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+    transition-property: opacity transform;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in;
+  }
+
+  .slide_close {
+    transform: translate3d(0, -200px, 0);
+    opacity: 0;
+    transition-property:  opacity transform;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in;
+  }
+
+  .zoom_in_out {
+    animation: zoom_in_out 0.1s forwards ease-out;
+  }
+
+  .fade_in_out {
+    animation: fade_in_out 0.1s forwards ease-out;
   }
 
   /** Keyframe Animations **/
-  @keyframes slide_open {
-    from {
-      transform: translate3d(0, -200px, 0);
-      opacity: 0;
-    }
-    to {
-      transform: translate3d(0, 0, 0);
-      opacity: 1;
-    }
-  }
-
-  @keyframes slide_close {
-    from {
-      transform: translate3d(0, 0, 0);
-      opacity: 1;
-    }
-    to {
-      transform: translate3d(0, -200px, 0);
-      opacity: 0;
-    }
-  }
-
   @keyframes zoomin {
     from {transform: scale(1);}
     to {transform: scale(1.1);}
@@ -187,9 +192,15 @@ body {
     to {transform: scale(1);}
   }
 
-  @keyframes title_transition {
+  @keyframes zoom_in_out {
     0% {transform: scale(1);}
     50% {transform: scale(0);}
     100%{transform: scale(1);}
+  }
+
+  @keyframes fade_in_out {
+    0% {opacity: 1;}
+    50% {opacity: 0;}
+    100%{opacity: 1;}
   }
 }
