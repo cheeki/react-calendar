@@ -5,6 +5,17 @@ import CalendarBody from './calendarBody';
 import CalendarMonthSelect from './calendarMonthSelect'
 
 export default class Calendar extends React.Component {
+    static defaultProps = {
+        selectRange: false,
+        locale: 'en-US'
+    };
+
+    static propTypes = {
+        onDateSelected: React.PropTypes.func,
+        selectRange: React.PropTypes.bool,
+        locale: React.PropTypes.string
+    };
+
     constructor (props) {
         super(props);
 
@@ -15,12 +26,12 @@ export default class Calendar extends React.Component {
             year: today.getFullYear(),
             currentDate: today,
             isShowingMonthSelector: false,
-            locale: 'en-US'
+            needTransitionEffect: false
         };
     }
 
     moveToNextMonth () {
-        this.setState(function(previousState, currentProps) {
+        this.setState((previousState, currentProps) => {
             var month = previousState.month,
                 year = previousState.year,
                 nextMonth = month + 1;
@@ -32,13 +43,14 @@ export default class Calendar extends React.Component {
 
             return {
                 month: nextMonth,
-                year: year
+                year: year,
+                needTransitionEffect: true
             };
         });
     }
 
     moveToPrevMonth () {
-        this.setState(function(previousState, currentProps) {
+        this.setState((previousState, currentProps) => {
             var month = previousState.month,
                 year = previousState.year,
                 prevMonth = month - 1;
@@ -50,7 +62,8 @@ export default class Calendar extends React.Component {
 
             return {
                 month: prevMonth,
-                year: year
+                year: year,
+                needTransitionEffect: true
             };
         });
     }
@@ -64,18 +77,18 @@ export default class Calendar extends React.Component {
     }
 
     selectDate (date) {
-        var _this = this;
-        return function () {
-            _this.setState({currentDate: date});
+        return () => {
+            this.setState({currentDate: date});
+            document.getElementsByClassName(this.props.inputbox)[0].value = date;
         };
     }
 
     selectMonth (month) {
-        var _this = this;
-        return function () {
-            _this.setState({
+        return () => {
+            this.setState({
                 month: month,
-                isShowingMonthSelector: false
+                isShowingMonthSelector: false,
+                needTransitionEffect: true
             });
         };
     }
@@ -98,6 +111,11 @@ export default class Calendar extends React.Component {
         return this.moveToPrevMonth;
     }
 
+    /** Lifecycle Methods **/
+    componentWillUpdate (nextProps, nextState) {
+
+    }
+
     render() {
         return (
             <div className='fugui-calendar'>
@@ -113,8 +131,14 @@ export default class Calendar extends React.Component {
                         date={new Date(this.state.year, this.state.month)}
                         currentDate={this.state.currentDate}
                         selectDate={this.selectDate.bind(this)}
-                        locale={this.state.locale}
-                        className={this.state.isShowingMonthSelector ? 'blur' : ''}
+                        locale={this.props.locale}
+                        className={() => {
+                            var className =  '';
+                            if (this.state.isShowingMonthSelector) {
+                                className += 'blur';
+                            }
+                        }
+                        }
                         isShowingMonthSelector={this.state.isShowingMonthSelector} />
                     <CalendarMonthSelect
                         className={this.state.isShowingMonthSelector ? 'slide_open' : 'slide_close'}
