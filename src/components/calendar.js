@@ -151,7 +151,8 @@ export default class Calendar extends React.Component {
                         isShowingMonthSelector={this.state.isShowingMonthSelector} />
                     <CalendarMonthSelect
                         className={this.state.isShowingMonthSelector ? 'slide_open' : 'slide_close'}
-                        onMonthSelect={this.selectMonth.bind(this)} />
+                        onMonthSelect={this.selectMonth.bind(this)}
+                        currentMonth={this.state.month} />
                 </div>
             </div>
         );

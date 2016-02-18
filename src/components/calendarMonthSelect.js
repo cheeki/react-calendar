@@ -14,7 +14,7 @@ export default class CalendarMonthSelect extends React.Component {
             <ul className={("month_selector " + this.props.className).trim()}>
                 {months.map((v, i) => (
                     <li key={i}>
-                    <button type='button' onClick={this.props.onMonthSelect(i)}>
+                    <button type='button' onClick={this.props.onMonthSelect(i)} className={this.props.currentMonth === i ? "active" : ""} >
                     {v}
                     </button>
                 </li>))}
